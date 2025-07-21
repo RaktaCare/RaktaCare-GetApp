@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="manifest" href="manifest.json"/>
+    <link rel="icon" type="image/x-icon" sizes="360x360"
+          href="images/raktacare-360.png">
+    <title>RaktaCare</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #000;
+                background-image: url("images/raktacare-splash-dark.svg");
+            }
+        }
+
+        @media (prefers-color-scheme: light) {
+            body {
+                background-color: #FFF;
+                background-image: url("images/raktacare-splash-light.svg");
+            }
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+    </style>
+</head>
+<body>
+<script>
+    const playStoreUrl = 'https://play.google.com/store/apps/details?id=com.innoveloper.raktacare';
+    const appStoreUrl = 'https://www.raktacare.com';
+    const websiteUrl = 'https://www.raktacare.com';
+
+    function redirectToPlatformSpecificURL() {
+        const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+        let targetUrl;
+
+        if (/android/i.test(userAgent)) {
+            if (playStoreUrl) {
+                targetUrl = playStoreUrl;
+            } else {
+                targetUrl = websiteUrl;
+            }
+        } else if ((/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream)) {
+            if (appStoreUrl) {
+                targetUrl = appStoreUrl;
+            } else {
+                targetUrl = websiteUrl;
+            }
+        } else {
+            targetUrl = websiteUrl;
+        }
+
+        const countdownInterval = setInterval(() => {
+            window.location.href = targetUrl;
+            clearInterval(countdownInterval);
+        }, 1500);
+    }
+    document.addEventListener('DOMContentLoaded', redirectToPlatformSpecificURL);
+</script>
+</body>
+</html>
